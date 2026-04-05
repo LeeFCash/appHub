@@ -1,0 +1,3 @@
+sudo pacman -S gradle
+./gradlew :app:bootRun # use this over the command # too run gradle with something
+gradle ./gradlew :app:bootRun # too run gradle with something

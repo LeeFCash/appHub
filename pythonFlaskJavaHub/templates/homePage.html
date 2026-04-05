@@ -5,15 +5,32 @@
 	</head>
 	<body>
 		<h1> Here is all the apps </h1>
-		<div>
-			<div>
-				<img src="{{ url_for('static', filename='../static/IMGs/faceBAW.png') }}" alt="Image for Digital Portfolio.">
-				<p>Digital Portfolio</p>
+		<div class="grid2cAuto">
+			<div class="grid1cAuto maxvw30">
+				<p>Information</p>
+				<ul>
+					<li>later</li>
+					<li>later</li>
+					<li>later</li>
+					<li>later</li>
+					<li>later</li>
+					<li>later</li>
+					<li>later</li>
+					<li>later</li>
+					<li>later</li>
+				</ul>
 			</div>
-			<div>
-				<img src="{{ url_for('static', filename='../static/IMGs/for-later-apps-workers-dummy-man.webp') }}" alt="Image for (right now) Dummy app.">
-				<p>(right now) Dummy app</p>
+			<div class="flexWrap">
+				<div class="grid1cAuto whiteBorder maxper100">
+					<a href="./digital_portfolio/home_page"><img class="maxper100" src="{{ url_for('static', filename='../static/IMGs/faceBAW.png') }}" alt="Image for Digital Portfolio."></a>
+					<a href="./digital_portfolio/home_page"><p>Digital Portfolio</p></a>
+				</div>
+				<div class="grid1cAuto whiteBorder maxper100">
+					<a href="./digital_portfolio/home_page"><img class="maxper100" src="{{ url_for('static', filename='../static/IMGs/for-later-apps-workers-dummy-man.webp') }}" alt="Image for (right now) Dummy app."></a>
+					<a href="./digital_portfolio/home_page"><p>(right now) Dummy app</p></a>
+				</div>
 			</div>
 		</div>
+		<script src="./../static/homePage.js"></script>
 	</body>
 </html>

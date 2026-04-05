@@ -1,12 +1,16 @@
 from flask import Flask, render_template, request, jsonify
 import webbrowser
+import subprocess
+import time
+import os
 #from datetime import datetime
 #def open_browser():
 #    webbrowser.open("http://localhost:5001/")
+
 app = Flask(__name__)
 @app.route('/')
 def home_page():
-    return "hello, testing..."
+    return render_template('homePage.html')
 #
 @app.route('/digital_portfolio/home_page')
 def digital_portfolio_home_page():
