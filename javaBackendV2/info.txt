@@ -1,3 +1,7 @@
 sudo pacman -S gradle
 ./gradlew :app:bootRun # use this over the command # too run gradle with something
 gradle ./gradlew :app:bootRun # too run gradle with something
+
+
+./gradlew :app:bootJar # too make .jar file in app/build/libs/
+java -jar app.jar # too run it

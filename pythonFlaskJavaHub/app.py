@@ -3,9 +3,32 @@ import webbrowser
 import subprocess
 import time
 import os
+import atexit
 #from datetime import datetime
 #def open_browser():
 #    webbrowser.open("http://localhost:5001/")
+
+def start_backend():
+    global backend_process
+
+    jar_path = os.path.abspath("jarFiles/javaBackendV2/01/app.jar")
+    # detect OS # nt = windows
+#    if os.name == "nt":
+#        cmd = ["gradlew.bat", ":app:bootRun"]
+#    else:
+#        cmd = ["./gradlew", ":app:bootRun"]
+    
+    backend_process = subprocess.Popen([
+        "java",
+        "-jar",
+        jar_path
+        ])
+
+def stop_backend():
+    if backend_process:
+        backend_process.terminate()
+
+atexit.register(stop_backend)
 
 app = Flask(__name__)
 @app.route('/')
@@ -28,7 +51,11 @@ def digital_portfolio_skills():
 def digital_portfolio_contact_me():
     return render_template('contactMe.html')
 #
-webbrowser.open("http://localhost:5001/")
+@app.route('/numberGuessingGame')
+def testApp():
+    return render_template('numberGuessingGame.html')
+#
+#webbrowser.open("http://localhost:5001/")
 #
 if __name__ == '__main__':
     # comment or 
@@ -36,5 +63,7 @@ if __name__ == '__main__':
     this for comment
     """
     #threading.Timer(1.0, open_browser).start()# for if I want delay 
-#    webbrowser.open("http://localhost:5001/")
-    app.run(debug = True, use_reloader = True, port = 5001)
+    start_backend()
+    time.sleep(5)
+    webbrowser.open("http://localhost:5001/")
+    app.run(debug = True, use_reloader = False, port = 5001)
