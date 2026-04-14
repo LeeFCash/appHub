@@ -39,7 +39,12 @@ def stop_backend():
 
 atexit.register(stop_backend)
 
-app = Flask(__name__)
+base_path = get_base_path()
+app = Flask(
+        __name__,
+        template_folder=os.path.join(base_path, "templates"),
+        static_folder=os.path.join(base_path, "static")
+        )
 @app.route('/')
 def home_page():
     return render_template('homePage.html')
@@ -75,5 +80,5 @@ if __name__ == '__main__':
     start_backend()
     time.sleep(5)
     webbrowser.open("http://localhost:5001/")
-    app.run(debug = True, use_reloader = False, port = 5001)
+    app.run(debug = False, use_reloader = False, port = 5001)
     stop_backend()
