@@ -1,0 +1,2 @@
+https://adoptium.net/temurin/releases/?os=any&arch=any&version=21&mode=filter # use the website to download a to my understanding prcompiled java dev kit to use java without the user needing to have java installed 
+tar -xvf # the command to extract the java runtime files

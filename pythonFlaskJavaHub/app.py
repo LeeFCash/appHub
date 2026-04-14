@@ -4,25 +4,34 @@ import subprocess
 import time
 import os
 import atexit
+import sys
 #from datetime import datetime
 #def open_browser():
 #    webbrowser.open("http://localhost:5001/")
 
+def get_base_path():
+    if hasattr(sys, '_MEIPASS'):
+        return sys._MEIPASS
+    return os.path.abspath(".")
+
 def start_backend():
     global backend_process
 
-    jar_path = os.path.abspath("jarFiles/javaBackendV2/01/app.jar")
-    # detect OS # nt = windows
-#    if os.name == "nt":
-#        cmd = ["gradlew.bat", ":app:bootRun"]
-#    else:
-#        cmd = ["./gradlew", ":app:bootRun"]
-    
+    base_path = get_base_path()
+
+    jar_path = os.path.join(base_path, "jarFiles", "javaBackendV2", "01", "app.jar")
+
+    # OS-specific java path
+    if os.name == "nt":
+        java_path = os.path.join(base_path, "jarFiles", "jreWin", "bin", "java.exe")
+    else:
+        java_path = os.path.join(base_path, "jarFiles", "jreLinux", "bin", "java")
+
     backend_process = subprocess.Popen([
-        "java",
+        java_path,
         "-jar",
         jar_path
-        ])
+    ])
 
 def stop_backend():
     if backend_process:
@@ -67,3 +76,4 @@ if __name__ == '__main__':
     time.sleep(5)
     webbrowser.open("http://localhost:5001/")
     app.run(debug = True, use_reloader = False, port = 5001)
+    stop_backend()
