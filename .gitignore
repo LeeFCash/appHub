@@ -1,0 +1,14 @@
+# Java runtime (DO NOT TRACK)
+pythonFlaskJavaHub/jarFiles*
+
+# archives
+*.zip
+*.tar.gz
+
+# builds
+dist/
+build/
+__pycache__/
+
+# pyinstaller
+*.spec
