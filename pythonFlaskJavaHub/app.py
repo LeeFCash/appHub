@@ -19,19 +19,29 @@ def start_backend():
 
     base_path = get_base_path()
 
-    jar_path = os.path.join(base_path, "jarFiles", "javaBackendV2", "01", "app.jar")
+    backend_dir = os.path.join(base_path, "exe", "LinuxArch02", "backend")
 
     # OS-specific java path
     if os.name == "nt":
-        java_path = os.path.join(base_path, "jarFiles", "jreWin", "bin", "java.exe")
+        exe_path = os.path.join(backend_dir, "backend.exe")
     else:
-        java_path = os.path.join(base_path, "jarFiles", "jreLinux", "bin", "java")
+        exe_path = os.path.join(backend_dir, "bin", "backend")
 
-    backend_process = subprocess.Popen([
-        java_path,
-        "-jar",
-        jar_path
-    ])
+    if not os.path.exists(exe_path):
+        print("Backend executable not found. Running without backend.")
+        return False
+
+    try:
+        backend_process = subprocess.Popen([exe_path])
+        return True
+    except Exception as e:
+        print("Failed to start backend:", e)
+        return False
+#    backend_process = subprocess.Popen([
+#        java_path,
+#        "-jar",
+#        jar_path
+#    ])
 
 def stop_backend():
     if backend_process:
@@ -77,8 +87,14 @@ if __name__ == '__main__':
     this for comment
     """
     #threading.Timer(1.0, open_browser).start()# for if I want delay 
-    start_backend()
-    time.sleep(5)
+    #start_backend()
+    backend_started = start_backend()
+    #
+    if backend_started:
+        time.sleep(3)  
+    else:
+        print("Backend unavailable")
+    #time.sleep(5)
     webbrowser.open("http://localhost:5001/")
     app.run(debug = False, use_reloader = False, port = 5001)
     stop_backend()

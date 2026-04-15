@@ -28,4 +28,18 @@ pyinstaller --onedir \
 
 
 
+if doing it by using more then one exe then 
+pyinstaller --onedir \
+  --add-data "templates:templates" \
+  --add-data "static:static" \
+  --add-data "exe:exe" \
+  app.py
 
+windows 11 do 
+pyinstaller --onedir ^
+  --add-data "templates;templates" ^
+  --add-data "static;static" ^
+  --add-data "exe;exe" ^
+  app.py
+
+folder with executable and other files needed to run but run the one executable then it works no install needed.
