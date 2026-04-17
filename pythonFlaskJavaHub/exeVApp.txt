@@ -17,38 +17,34 @@ def get_base_path():
 def start_backend():
     global backend_process
 
-    base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+    base_path = get_base_path()
 
-    jar_path = os.path.join(base_dir, "javaBackendV2", "app", "build", "libs", "app.jar")
+    backend_dir = os.path.join(base_path, "exe", "LinuxArch02", "backend")
 
-    gradle_path = os.path.join(base_dir, "javaBackendV2", "gradlew")
-
+    # OS-specific java path
     if os.name == "nt":
-        gradle_path += ".bat"
-
-    if os.path.exists(jar_path):
-        print("Starting backend from JAR...")
-        backend_process = subprocess.Popen([
-            "java", "-jar", jar_path
-        ])
-        return True
-
-    elif os.path.exists(gradle_path):
-        print("Starting backend with Gradle...")
-        backend_process = subprocess.Popen(
-            [gradle_path, ":app:bootRun"],
-            cwd = os.path.join(base_dir, "javaBackendV2")
-        )
-        return True
-
-    # 3️⃣ Otherwise
+        exe_path = os.path.join(backend_dir, "backend.exe")
     else:
-        print("Backend not found.")
+        exe_path = os.path.join(backend_dir, "bin", "backend")
+
+    if not os.path.exists(exe_path):
+        print("Backend executable not found. Running without backend.")
         return False
 
+    try:
+        backend_process = subprocess.Popen([exe_path])
+        return True
+    except Exception as e:
+        print("Failed to start backend:", e)
+        return False
+#    backend_process = subprocess.Popen([
+#        java_path,
+#        "-jar",
+#        jar_path
+#    ])
+
 def stop_backend():
-    global backend_process
-    if backend_process is not None:
+    if backend_process:
         backend_process.terminate()
 
 atexit.register(stop_backend)
@@ -86,16 +82,16 @@ def testApp():
 #webbrowser.open("http://localhost:5001/")
 #
 if __name__ == '__main__':
-    # comment or 
+    # comment or
     """
     this for comment
     """
-    #threading.Timer(1.0, open_browser).start()# for if I want delay 
+    #threading.Timer(1.0, open_browser).start()# for if I want delay
     #start_backend()
     backend_started = start_backend()
     #
     if backend_started:
-        time.sleep(3)  
+        time.sleep(3)
     else:
         print("Backend unavailable")
     #time.sleep(5)
