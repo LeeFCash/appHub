@@ -145,6 +145,8 @@ appHub/
 ```
 cd pythonFlaskJavaHub
 python app.py
+(If flask is not installed do "python -m pip install flask")
+(WARNING: it may take 7 minutes to build and setup the backend on the first run of the app also durring this prosses don't stop the progrem and when its ready refresh website and it should work also every run after that will take no more then 30 seconds from my testing in vm.)
 ```
 
 #### Linux:
